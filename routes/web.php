@@ -38,6 +38,10 @@ Route::get('/fruit', function () {
     return Inertia::render('Fruit');
 })->name('fruit');
 
+Route::get('/hello-teacher', function () {
+    return Inertia::render('HelloTeacher');
+})->name('hello-teacher');
+
 Route::get('/bootstrap', function () {
     return Inertia::render('BootstrapContent');
 })->name('bootstrap');
