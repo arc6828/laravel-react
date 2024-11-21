@@ -37,3 +37,7 @@ Route::get('/tictactoe', function () {
 Route::get('/fruit', function () {
     return Inertia::render('Fruit');
 })->name('fruit');
+
+Route::get('/bootstrap', function () {
+    return Inertia::render('BootstrapContent');
+})->name('bootstrap');
