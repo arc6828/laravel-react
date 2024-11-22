@@ -1,7 +1,7 @@
 import BootstrapLayout from "@/Layouts/BootstrapLayout";
 import { Head } from "@inertiajs/react";
 
-export default function Bootstrap() {
+export default function BootstrapContent() {
     return (
         <BootstrapLayout>
                        
