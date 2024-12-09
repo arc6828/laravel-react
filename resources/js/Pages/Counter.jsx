@@ -14,7 +14,7 @@ export default function Counter() {
     return (
         <BootstrapLayout>                       
             <Head title="Counter"/>
-            <div className="container mt-4">
+            <div className="container my-4">
                 <h1>Counter App</h1>                
                 <h5 className="text-center bg-info fs-1">{count}</h5>
                 <div className="row text-center">
