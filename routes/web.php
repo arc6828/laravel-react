@@ -45,3 +45,7 @@ Route::get('/hello-teacher', function () {
 Route::get('/bootstrap', function () {
     return Inertia::render('BootstrapContent');
 })->name('bootstrap');
+
+Route::get('/counter', function () {
+    return Inertia::render('Counter');
+})->name('counter');
