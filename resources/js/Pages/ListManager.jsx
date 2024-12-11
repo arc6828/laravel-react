@@ -53,3 +53,9 @@ export default function ListManager() {
         </BootstrapLayout>
     );
 }
+
+const items = ['Apple', 'Banana', 'Cherry'];
+items.splice(items.indexOf('Banana'), 1);
+console.log(items); // ['Apple', 'Cherry']
+
+

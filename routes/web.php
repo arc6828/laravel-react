@@ -46,6 +46,10 @@ Route::get('/bootstrap', function () {
     return Inertia::render('BootstrapContent');
 })->name('bootstrap');
 
+Route::get('/circle', function () {
+    return Inertia::render('Circle');
+})->name('circle');
+
 Route::get('/counter', function () {
     return Inertia::render('Counter');
 })->name('counter');
