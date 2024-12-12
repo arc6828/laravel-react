@@ -69,5 +69,9 @@ Route::get('/infinite-scroll', function () {
 
 Route::get('/product', function () {
     $products = Product::all();
-    return Inertia::render('Product', ['products' => $products]);
+    return Inertia::render('ProductList', ['products' => $products]);
 })->name('product');
+
+Route::get('/product-others', function () {
+    return Inertia::render('ProductOthers');
+})->name('product-others');
