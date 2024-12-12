@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Models\Product;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -65,3 +66,8 @@ Route::get('/list-manager', function () {
 Route::get('/infinite-scroll', function () {
     return Inertia::render('InfiniteScrollExample');
 })->name('infinite-scroll');
+
+Route::get('/product', function () {
+    $products = Product::all();
+    return Inertia::render('Product', ['products' => $products]);
+})->name('product');
