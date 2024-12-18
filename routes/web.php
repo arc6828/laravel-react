@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Product;
 use Illuminate\Foundation\Application;
@@ -67,11 +68,14 @@ Route::get('/infinite-scroll', function () {
     return Inertia::render('InfiniteScrollExample');
 })->name('infinite-scroll');
 
-Route::get('/product', function () {
-    $products = Product::all();
-    return Inertia::render('ProductList', ['products' => $products]);
-})->name('product');
+// Route::get('/product', function () {
+//     $products = Product::all();
+//     return Inertia::render('ProductList', ['products' => $products]);
+// })->name('product');
 
 Route::get('/product-others', function () {
     return Inertia::render('ProductOthers');
 })->name('product-others');
+
+Route::resource('/product', ProductController::class );
+
