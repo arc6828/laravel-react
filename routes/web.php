@@ -68,14 +68,22 @@ Route::get('/infinite-scroll', function () {
     return Inertia::render('InfiniteScrollExample');
 })->name('infinite-scroll');
 
-// Route::get('/product', function () {
-//     $products = Product::all();
-//     return Inertia::render('ProductList', ['products' => $products]);
-// })->name('product');
+Route::get('/product', function () {
+    $products = Product::all();
+    return Inertia::render('ProductList', ['products' => $products]);
+})->name('product');
 
 Route::get('/product-others', function () {
     return Inertia::render('ProductOthers');
 })->name('product-others');
 
-Route::resource('/product', ProductController::class );
+
+
+Route::get('/product/create', function () {
+    return Inertia::render('ProductForm');
+})->name('product.create');
+
+Route::get('/product/{id}/edit', function ($id) {
+    return Inertia::render('ProductForm', compact('id'));
+})->name('product.edit');
 
