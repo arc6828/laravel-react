@@ -2,40 +2,40 @@ import BootstrapLayout from "@/Layouts/BootstrapLayout";
 import { Head } from "@inertiajs/react";
 import React, { useEffect, useState } from "react";
 
-const ProductForm = () => {
+const ProductForm = ({product}) => {
     const [formData, setFormData] = useState({
         name: "",
         description: "",
         price: "",
         image: "",
-    });
+    });    
+
+    useEffect(()=>{        
+        if(product){
+            setFormData(product);
+        }
+    },[]);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const submit = async () => {
-        try {
-            // const response = await fetch(
-            //     "https://raw.githubusercontent.com/arc6828/laravel-react/refs/heads/main/public/json/products.json"
-            // );
-            // const data = await response.json();
-            // setProducts(data);
-        } catch (error) {
-            console.error("There was an error fetching the products!", error);
-        }
-    };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         // set options
+        // const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
         const options = {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
+            method: product?"PUT":"POST",
+            headers: { 
+                "Content-Type": "application/json", 
+            },
             body: JSON.stringify(formData),
         };
         // send data
-        const response = await fetch("/api/products", options);
+        let url = product ? "/api/product/"+product.id : "/api/product";
+        console.log(url);
+        const response = await fetch(url, options);
         // response and show status
         const data = await response.json();
         if (response.ok) {
@@ -44,6 +44,8 @@ const ProductForm = () => {
             console.error("Error:", data.errors);
         }
     };
+
+    
     
 
     return (
@@ -52,6 +54,7 @@ const ProductForm = () => {
             <div className="container my-4">
                 <h1>Product Form for Create/Edit</h1>
                 <form onSubmit={handleSubmit}>
+
                     <label className="form-label mt-4"> Name </label>
                     <input
                         className="form-control"
@@ -60,6 +63,7 @@ const ProductForm = () => {
                         value={formData.name}
                         onChange={handleChange}
                         placeholder="Product Name"
+                        required 
                     />
                     <label className="form-label mt-4"> Description </label>
                     <textarea
@@ -68,6 +72,7 @@ const ProductForm = () => {
                         value={formData.description}
                         onChange={handleChange}
                         placeholder="Product Description"
+                        required 
                     />
                     <label className="form-label mt-4"> Price </label>
                     <input
@@ -77,6 +82,7 @@ const ProductForm = () => {
                         value={formData.price}
                         onChange={handleChange}
                         placeholder="Product Price"
+                        required 
                     />
                     <label className="form-label mt-4"> Image </label>
                     <input
@@ -86,6 +92,7 @@ const ProductForm = () => {
                         value={formData.image}
                         onChange={handleChange}
                         placeholder="Image URL"
+                        required
                     />
                     <button className="btn btn-primary mt-4" type="submit" >
                         Submit

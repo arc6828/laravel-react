@@ -84,6 +84,7 @@ Route::get('/product/create', function () {
 })->name('product.create');
 
 Route::get('/product/{id}/edit', function ($id) {
-    return Inertia::render('ProductForm', compact('id'));
+    $product = Product::findOrFail($id);
+    return Inertia::render('ProductForm', compact('product'));
 })->name('product.edit');
 
