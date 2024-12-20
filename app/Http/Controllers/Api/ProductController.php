@@ -35,7 +35,7 @@ class ProductController extends Controller
             'description' => 'required|string',
             'price' => 'required|numeric|min:0',
             'image' => 'nullable|url',
-        ]);
+        ]);        
 
         $product = Product::create($validated);
 

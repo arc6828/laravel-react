@@ -77,7 +77,10 @@ Route::get('/product-others', function () {
     return Inertia::render('ProductOthers');
 })->name('product-others');
 
-
+Route::get('/product-manager', function () {
+    $p = Product::all();
+    return Inertia::render('ProductManager', compact('p'));
+})->name('product-manager');
 
 Route::get('/product/create', function () {
     return Inertia::render('ProductForm');
