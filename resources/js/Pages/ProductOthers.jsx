@@ -17,7 +17,7 @@ const ProductOthers = () => {
 
     const loadData2 = async () => {
         try {
-            const response = await fetch( "https://raw.githubusercontent.com/arc6828/laravel-react/refs/heads/main/public/json/products.json" );            
+            const response = await fetch( "/api/product" );            
             const data = await response.json();
             setProducts(data);
         } catch (error) {

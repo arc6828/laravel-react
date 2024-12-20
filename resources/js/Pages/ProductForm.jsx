@@ -45,7 +45,7 @@ const ProductForm = ({product}) => {
             if (response.ok) {
                 let msg = product ? "Product updated successfully!"  : "Product added successfully!"
                 alert(msg);
-                window.location.href = "/product-others";
+                window.location.href = "/product-manager";
             } else {
                 // validated data errors 
                 console.error("Error:", data.errors);
@@ -64,7 +64,7 @@ const ProductForm = ({product}) => {
         <BootstrapLayout>
             <Head title="Product Form" />
             <div className="container my-4">
-                <h1>Product Form for Create/Edit</h1>
+                <h1>Product Form for {product?"Edit":"Create"}</h1>
                 <form onSubmit={handleSubmit}>
                     <label className="form-label mt-4"> Name </label>
                     <input
@@ -109,9 +109,13 @@ const ProductForm = ({product}) => {
                         
                     />
                     {errors.image && <div><small className="text-danger">{errors.image}</small></div>}
-                    <button className="btn btn-primary mt-4" type="submit" >
-                        Submit
-                    </button>
+
+                    <div className="mt-4">
+                        <a className="btn btn-secondary me-2" href="/product-manager">back</a>
+                        <button className="btn btn-primary" type="submit" >
+                            Submit
+                        </button>
+                    </div>
                 </form>
             </div>
         </BootstrapLayout>
