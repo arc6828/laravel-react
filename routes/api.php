@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\CartItemController;
+use App\Http\Controllers\Api\MenuController;
 use App\Http\Controllers\Api\ProductController;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -10,6 +12,8 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::apiResource('/product', ProductController::class);
+Route::apiResource('/menu', MenuController::class);
+Route::apiResource('/cart-item', CartItemController::class);
 
 // Route::get('/product', function () {
 //     $products = Product::all(); // Fetch all products

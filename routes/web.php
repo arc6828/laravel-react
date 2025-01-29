@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Menu;
 use App\Models\Product;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -90,4 +91,8 @@ Route::get('/product/{id}/edit', function ($id) {
     $product = Product::findOrFail($id);
     return Inertia::render('ProductForm', compact('product'));
 })->name('product.edit');
+
+Route::get('/menus', function () {    
+    return Inertia::render('MenuList');
+})->name('menus');
 
