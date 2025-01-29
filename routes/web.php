@@ -95,4 +95,7 @@ Route::get('/product/{id}/edit', function ($id) {
 Route::get('/menus', function () {    
     return Inertia::render('MenuList');
 })->name('menus');
+Route::get('/cart', function () {    
+    return Inertia::render('CartItemList');
+})->name('cart');
 
