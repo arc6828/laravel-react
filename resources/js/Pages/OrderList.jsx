@@ -1,12 +1,12 @@
 import BootstrapLayout from "@/Layouts/BootstrapLayout";
 import { useEffect, useState } from "react";
 
-const CartItemList = () => {
+const OrderList = () => {
     const [cart, setCart] = useState([]);
 
     const onLoad = async () => {
         try {
-            const response = await fetch("api/cart-item"); // เรียก API เมนูจาก Laravel
+            const response = await fetch("api/orders"); // เรียก API เมนูจาก Laravel
             const data = await response.json();
             setCart(data);
         } catch (error) {
@@ -14,55 +14,8 @@ const CartItemList = () => {
         }
     };
 
-    const onRemove = async (id) => {
-        // confirmed
-        let confirmed = window.confirm(
-            "Are you sure you want to delete this item?"
-        );
-        if (!confirmed) return false;
-
-        // remove
-        try {
-            // update backend
-            const response = await fetch(`api/cart-item/${id}`, {
-                method: "DELETE",
-            });
-
-            if (!response.ok) throw new Error("Failed to delete");
-
-            // update frontend
-            setCart(cart.filter((item) => item.id !== id));
-
-            alert("deleted successfully");
-        } catch (error) {
-            console.error(error.message);
-        }
-    };
-
-    const placeOrder = async() => {
-
-        try {
-            let data = {
-                "cart" : cart,
-            };
-            // console.log(data);
-            const response = await fetch("api/orders", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data),
-            });
-
-            if (!response.ok) {
-                throw new Error("Failed to add item to cart");
-            }
-            let data2 = await response.json()
-            console.log(data2)
-            setCart([]);
-            alert("เพิ่มสินค้าเรียบร้อย!");
-        } catch (error) {
-            console.error("Error adding to cart:", error);
-        }
-
+    const totalCart = () => {
+        return cart.reduce((partialSum, a)=>(partialSum + a.item.price), 0);
     };
 
     useEffect(() => {
@@ -72,7 +25,7 @@ const CartItemList = () => {
     return (
         <BootstrapLayout>
             <div className="container">
-                <h1>ตะกร้าสินค้า</h1>
+                <h1>คำสั่งซื้อทั้งหมด</h1>
                 {cart.map((item) => (
                     <div className="card mb-3">
                         <div className="row g-0">
@@ -122,27 +75,28 @@ const CartItemList = () => {
                     </div>
                 ))}
 
-                <button
-                    className="btn btn-lg btn-warning w-100 mb-4"
-                    onClick={() => placeOrder() }
+                <div
+                    class="floating-btn bg-warning p-4 btn my-5"
+                    style={{
+                        flexDirection: "row",
+                        display:"flex",
+                        justifyContent: "space-between",
+                        fontSize:25,
+                    }}
                 >
-                    <div>สั่ง {cart.length} รายการ</div>
-                </button>
+                    <div>🛒 {cart.length} รายการในคำสั่งซื้อ</div>
+                    <div>รวมที่ต้องชำระ ฿{totalCart()} บาท</div>
+                </div>
+
                 <a
                     className="btn btn-lg btn-outline-primary w-100 mb-4"
-                    href="/menus"                    
+                    href="/menus"
                 >
                     กลับไปหน้าเมนู
-                </a>
-                <a
-                    className="btn btn-lg btn-outline-success w-100"
-                    href="/orders"                    
-                >
-                    ดู Order ทั้งหมด
                 </a>
             </div>
         </BootstrapLayout>
     );
 };
 
-export default CartItemList;
+export default OrderList;

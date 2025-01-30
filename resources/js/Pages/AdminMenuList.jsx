@@ -1,68 +1,23 @@
 import BootstrapLayout from "@/Layouts/BootstrapLayout";
 import { useState, useEffect } from "react";
-import "../../css/menu.css"
+import "../../css/menu.css";
 
-const MenuList = () => {
+const AdminMenuList = () => {
     const [menus, setMenus] = useState([]);
-    const [cart, setCart] = useState([]);
 
-    const loadMenus = async() => {
+    const loadMenus = async () => {
         try {
             let response = await fetch("api/menu"); // เรียก API เมนูจาก Laravel
             let data = await response.json();
             setMenus(data);
         } catch (error) {
-            console.error("Error fetching menu:", err)
-        }
-    };
-
-    const loadCart = async() => {
-        try {
-            let response = await fetch("api/cart-item"); // เรียก API เมนูจาก Laravel
-            let data = await response.json();
-            setCart(data);
-        } catch (error) {
-            console.error("Error fetching menu:", err)
+            console.error("Error fetching menu:", err);
         }
     };
 
     useEffect(() => {
         loadMenus();
-        loadCart();
     }, []);
-
-    const addToCart = async(item) => {
-
-        try {
-            let data = {
-                table_id: 1,
-                menu_id: item.id,
-                item: item,
-                quantity: 1, // เพิ่มทีละ 1
-                options: {},
-            };
-            // console.log(data);
-            const response = await fetch("api/cart-item", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data),
-            });
-
-            if (!response.ok) {
-                throw new Error("Failed to add item to cart");
-            }
-
-            // เพิ่มของลงตะกร้า
-            setCart([...cart, data]);
-
-            alert("เพิ่มสินค้าเรียบร้อย!");
-        } catch (error) {
-            console.error("Error adding to cart:", error);
-        }
-    };
-    const totalCart = () => {
-        return cart.reduce((partialSum, a)=>(partialSum + a.item.price), 0);
-    };
 
     return (
         <BootstrapLayout>
@@ -87,7 +42,7 @@ const MenuList = () => {
                                     </h6>
                                     <button
                                         className="btn btn-primary w-100"
-                                        onClick={() => addToCart(menu)}
+                                        onClick={() => {}}
                                     >
                                         เพิ่มลงตะกร้า 🛒
                                     </button>
@@ -97,14 +52,8 @@ const MenuList = () => {
                     ))}
                 </div>
             </div>
-            <a href="/cart">
-                <div class="floating-btn bg-warning px-5" style={{ flexDirection: "row", justifyContent:"space-between" }}>
-                    <div>🛒 {cart.length} รายการในตะกร้า</div>
-                    <div>฿{totalCart()} บาท</div>
-                </div>
-            </a>
         </BootstrapLayout>
     );
 };
 
-export default MenuList;
+export default AdminMenuList;

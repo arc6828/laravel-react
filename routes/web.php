@@ -92,10 +92,24 @@ Route::get('/product/{id}/edit', function ($id) {
     return Inertia::render('ProductForm', compact('product'));
 })->name('product.edit');
 
+Route::get('/admin-menus', function () {    
+    return Inertia::render('AdminMenuList');
+})->name('admin-menus');
+Route::get('/admin-menus/create', function () {    
+    return Inertia::render('AdminMenuForm');
+})->name('admin-menus.create');
+Route::get('/admin-menus/{id}/edit', function ($id) {    
+    $menu = Menu::findOrFail($id);
+    return Inertia::render('AdminMenuForm',compact('menu'));
+})->name('admin-menus.create');
+
 Route::get('/menus', function () {    
     return Inertia::render('MenuList');
 })->name('menus');
 Route::get('/cart', function () {    
     return Inertia::render('CartItemList');
 })->name('cart');
+Route::get('/orders', function () {    
+    return Inertia::render('OrderList');
+})->name('orders');
 
