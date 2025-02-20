@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\CartItemController;
 use App\Http\Controllers\Api\MenuController;
+use App\Http\Controllers\Api\OrderItemController;
 use App\Http\Controllers\Api\ProductController;
 use App\Models\CartItem;
 use App\Models\OrderItem;
@@ -17,26 +18,28 @@ Route::get('/user', function (Request $request) {
 Route::apiResource('/product', ProductController::class);
 Route::apiResource('/menu', MenuController::class);
 Route::apiResource('/cart-item', CartItemController::class);
-Route::get('/orders', function () {
-    $orders = OrderItem::get();
-    return response()->json($orders); 
-});
-Route::post('/orders', function (Request $request) {
+Route::apiResource('/order-item', OrderItemController::class);
 
-    $cart = $request->input("cart");
+// Route::get('/orders', function () {
+//     $orders = OrderItem::get();
+//     return response()->json($orders); 
+// });
+// Route::post('/orders', function (Request $request) {
+
+//     $cart = $request->input("cart");
     
-    //ย้ายของใน Cart ไป Order พร้อม Clear Cart    
-    foreach($cart as $item){
-        // สร้าง Order
-        OrderItem::create($item);
+//     //ย้ายของใน Cart ไป Order พร้อม Clear Cart    
+//     foreach($cart as $item){
+//         // สร้าง Order
+//         OrderItem::create($item);
 
-        // Clear Cart
-        CartItem::destroy($item["id"]);
-    }    
+//         // Clear Cart
+//         CartItem::destroy($item["id"]);
+//     }    
 
-    $message = ["message"=> $cart ];
-    return response()->json($message, 201); 
-});
+//     $message = ["message"=> $cart ];
+//     return response()->json($message, 201); 
+// });
 
 
 // Route::get('/product', function () {

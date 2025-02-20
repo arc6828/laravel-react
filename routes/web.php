@@ -113,3 +113,6 @@ Route::get('/orders', function () {
     return Inertia::render('OrderList');
 })->name('orders');
 
+Route::get('/kak', function () {    
+    return view("kak");
+})->name('kak');

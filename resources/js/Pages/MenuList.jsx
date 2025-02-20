@@ -1,6 +1,7 @@
 import BootstrapLayout from "@/Layouts/BootstrapLayout";
 import { useState, useEffect } from "react";
 import "../../css/menu.css"
+import { Head } from "@inertiajs/react";
 
 const MenuList = () => {
     const [menus, setMenus] = useState([]);
@@ -55,7 +56,7 @@ const MenuList = () => {
             // เพิ่มของลงตะกร้า
             setCart([...cart, data]);
 
-            alert("เพิ่มสินค้าเรียบร้อย!");
+            // alert("เพิ่มสินค้าเรียบร้อย!");
         } catch (error) {
             console.error("Error adding to cart:", error);
         }
@@ -67,10 +68,11 @@ const MenuList = () => {
     return (
         <BootstrapLayout>
             <div className="container my-5">
+                <Head title="เมนูอาหาร" />
                 <h1 className="text-center mb-4">เมนูอาหาร</h1>
                 <div className="row">
                     {menus.map((menu) => (
-                        <div key={menu.id} className="col-md-4 mb-4">
+                        <div key={menu.id} className="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
                             <div className="card shadow h-100">
                                 <img
                                     src={`${menu.image}`}
@@ -98,7 +100,7 @@ const MenuList = () => {
                 </div>
             </div>
             <a href="/cart">
-                <div class="floating-btn bg-warning px-5" style={{ flexDirection: "row", justifyContent:"space-between" }}>
+                <div class="floating-btn bg-warning px-4" style={{ flexDirection: "row", justifyContent:"space-between" }}>
                     <div>🛒 {cart.length} รายการในตะกร้า</div>
                     <div>฿{totalCart()} บาท</div>
                 </div>
