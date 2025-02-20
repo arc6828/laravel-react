@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\MenuController;
 use App\Http\Controllers\Api\OrderItemController;
 use App\Http\Controllers\Api\ProductController;
 use App\Models\CartItem;
+use App\Models\Menu;
 use App\Models\OrderItem;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -16,7 +17,11 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::apiResource('/product', ProductController::class);
-Route::apiResource('/menu', MenuController::class);
+// Route::apiResource('/menu', MenuController::class);
+Route::get('/menu', function () {
+    $menus = Menu::get();
+    return response()->json($menus); 
+});
 Route::apiResource('/cart-item', CartItemController::class);
 Route::apiResource('/order-item', OrderItemController::class);
 
