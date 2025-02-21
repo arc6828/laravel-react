@@ -17,14 +17,15 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::apiResource('/product', ProductController::class);
-// Route::apiResource('/menu', MenuController::class);
-Route::get('/menu', function () {
-    $menus = Menu::get();
-    return response()->json($menus); 
-});
+
+Route::apiResource('/menu', MenuController::class);
 Route::apiResource('/cart-item', CartItemController::class);
 Route::apiResource('/order-item', OrderItemController::class);
 
+// Route::get('/menu', function () {
+//     $menus = Menu::get();
+//     return response()->json($menus); 
+// });
 // Route::get('/orders', function () {
 //     $orders = OrderItem::get();
 //     return response()->json($orders); 
